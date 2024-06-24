@@ -42,6 +42,7 @@ const GalleryThumbnail = ({ uuid, title }: { uuid: string; title: string }) => {
             alt={title}
             height={0}
             width={0}
+            priority={true}
             sizes="100vw"
             onLoad={() => setIsLoading(false)}
             onError={() => {

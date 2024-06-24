@@ -16,38 +16,38 @@ export const metadata: Metadata = {
   description: "OCHRE Image Gallery",
   manifest: "manifest.webmanifest",
   icons: [
-    { rel: "icon", url: "/favicon.ico" },
+    { rel: "icon", url: "/image-gallery/favicon.ico" },
     {
       rel: "android-chrome-192x192",
       sizes: "192x192",
-      url: "android-chrome-192x192.png",
+      url: "/image-gallery/android-chrome-192x192.png",
     },
     {
       rel: "android-chrome-512x512",
       sizes: "512x512",
-      url: "android-chrome-512x512.png",
+      url: "/image-gallery/android-chrome-512x512.png",
     },
     {
       rel: "apple-touch-icon",
       sizes: "180x180",
-      url: "apple-touch-icon.png",
+      url: "/image-gallery/apple-touch-icon.png",
     },
     {
       rel: "icon",
       type: "image/png",
       sizes: "32x32",
-      url: "favicon-32x32.png",
+      url: "/image-gallery/favicon-32x32.png",
     },
     {
       rel: "icon",
       type: "image/png",
       sizes: "16x16",
-      url: "favicon-16x16.png",
+      url: "/image-gallery/favicon-16x16.png",
     },
     {
       rel: "mask-icon",
       color: "#0d87d3",
-      url: "safari-pinned-tab.svg",
+      url: "/image-gallery/safari-pinned-tab.svg",
     },
   ],
 };

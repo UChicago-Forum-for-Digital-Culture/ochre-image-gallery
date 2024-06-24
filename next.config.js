@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const config = {
+  basePath: "/image-gallery",
   images: {
     remotePatterns: [
       {

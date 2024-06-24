@@ -1,16 +1,9 @@
 {
-  "name": "Guerrilla Television",
-  "short_name": "Guerrilla TV",
-  "description": "University of Chicago Library’s Guerrilla Television project",
-  "start_url": "/guerrilla-television/",
+  "name": "OCHRE Image Gallery",
+  "short_name": "Image Gallery",
+  "description": "The University of Chicago Forum for Digital Culture’s OCHRE image gallery web application.",
+  "start_url": "/image-gallery/",
   "display": "standalone",
   "background_color": "#fff",
-  "theme_color": "#8B0021",
-  "icons": [
-    {
-      "src": "/guerrilla-television/favicon.ico",
-      "sizes": "any",
-      "type": "image/x-icon"
-    }
-  ]
+  "theme_color": "#8B0021"
 }
