@@ -1,49 +1,94 @@
-export type Note = {
+export type OchreNote = {
   noteNo: number;
-  content: Content;
+  content: OchreString | Array<OchreString>;
 };
 
-export type Content =
+export type OchreCreator = {
+  date: string;
+  type: string;
+  uuid: string;
+  content: string;
+};
+
+export type OchreString =
   | string
   | number
   | {
-      string: string | number;
+      content?: string | number;
+      string?: string | number | OchreString | Array<OchreString>;
       title?: string;
       languages?: string;
       lang?: string;
       rend?: string;
       whitespace?: string;
+      links?: {
+        resource: OchreLink | Array<OchreLink>;
+        concept?:
+          | "string"
+          | {
+              uuid: string;
+              content: string | number | OchreString | Array<OchreString>;
+            };
+        whitespace?: string;
+      };
+      properties?: { property: OchreProperty };
     };
 
-export type Property = {
+export type OchreProperty = {
   label: {
     uuid: string;
-    content: Content | Content[];
+    content:
+      | OchreString
+      | Array<OchreString>
+      | { string: OchreString | Array<OchreString> };
   };
   value: {
     type: string;
-    content: Content | Content[];
+    uuid?: string;
+    content:
+      | OchreString
+      | Array<OchreString>
+      | { string: OchreString | Array<OchreString> };
   };
+  property?: OchreProperty | Array<OchreProperty>;
 };
 
-export interface OchreResource {
+export type OchreLink = {
+  publicationDateTime: string;
+  type: string;
+  uuid: string;
+  content: string;
+  rend?: string;
+  height: number;
+  width: number;
+  href: string;
+};
+
+export type OchreResource = {
   date: string;
+  copyright: string;
   image: {
     publicationDateTime: string;
-    content: Content | Content[];
+    content: OchreString | Array<OchreString>;
+  };
+  project: {
+    identification: {
+      label: OchreString;
+      abbreviation: string;
+    };
   };
   identification: {
-    label:
-      | string
-      | {
-          lang: string;
-          content: Content | Content[];
-        };
+    label: OchreString;
     abbreviation: string;
     iri: string;
     iriPreview: string;
+    heightPreview: number;
+    widthPreview: number;
+    height: number;
+    width: number;
   };
-  notes: { note: Note[] };
+  creators?: { creator: OchreCreator | Array<OchreCreator> };
+  notes?: { note: OchreNote | Array<OchreNote> };
   publicationDateTime: string;
   context: {
     context: {
@@ -62,12 +107,32 @@ export interface OchreResource {
     };
     displayPath: string;
   };
-  description: string;
+  description: OchreString;
+  document: {
+    content: { string: OchreString | Array<OchreString> };
+  };
+  events: {
+    event: {
+      comment: OchreString;
+      label: OchreString;
+    };
+  };
+  links: {
+    resource: OchreLink | Array<OchreLink>;
+    concept?:
+      | "string"
+      | {
+          uuid: string;
+          content: string | number | OchreString | Array<OchreString>;
+        };
+    whitespace?: string;
+  };
+  format: string;
   type: string;
   attr: string;
   uuid: string;
   n: number;
-  citedBibliography: {
+  citedBibliography?: {
     reference: {
       citationFormatSpan: {
         span: {
@@ -77,7 +142,7 @@ export interface OchreResource {
       };
       identification: {
         label: {
-          content: Content | Content[];
+          content: OchreString | Array<OchreString>;
         };
       };
       publicationInfo: {
@@ -119,10 +184,10 @@ export interface OchreResource {
       project: {
         identification: {
           label: {
-            content: Content | Content[];
+            content: OchreString | Array<OchreString>;
           };
           abbreviation: {
-            content: Content | Content[];
+            content: OchreString | Array<OchreString>;
           };
         };
       };
@@ -130,19 +195,7 @@ export interface OchreResource {
       uuid: string;
       n: number;
       properties: {
-        property:
-          | Property
-          | {
-              label: {
-                uuid: string;
-                content: Content | Content[];
-              };
-              value: {
-                type: string;
-                content: Content | Content[];
-              };
-              property?: Property[];
-            }[];
+        property: OchreProperty | Array<OchreProperty>;
       };
       authors: {
         person: {
@@ -154,23 +207,27 @@ export interface OchreResource {
     };
   };
   properties: {
-    property:
-      | Property
-      | {
-          label: {
-            uuid: string;
-            content: Content | Content[];
-          };
-          value: {
-            type: string;
-            content: Content | Content[];
-          };
-          property?: Property[];
-        }[];
+    property: OchreProperty | Array<OchreProperty>;
   };
-}
+};
 
-export interface OchreMetadata {
+export type OchreHeadingResource = {
+  identification: {
+    label: {
+      content: OchreString | Array<OchreString>;
+    };
+  };
+  type: string;
+  uuid: string;
+};
+
+export type OchreHeading = {
+  resource: OchreHeadingResource | Array<OchreHeadingResource>;
+  name: string;
+  heading?: OchreHeading | Array<OchreHeading>;
+};
+
+export type OchreMetadata = {
   identifier: {
     content: string;
     xmlns: {
@@ -190,6 +247,7 @@ export interface OchreMetadata {
     };
   };
   language: {
+    default?: boolean;
     content: string;
     xmlns: {
       dc: string;
@@ -201,31 +259,139 @@ export interface OchreMetadata {
       dc: string;
     };
   };
-}
+};
 
-export interface OchreSetData {
+export type OchreConcept = {
+  identification: {
+    label: OchreString;
+  };
+  uuid: string;
+  n: number;
+  properties: {
+    property: OchreProperty | Array<OchreProperty>;
+  };
+};
+
+export type OchreSet = {
+  identification: {
+    label: OchreString;
+  };
+  publicationDateTime: string;
+  context: {
+    context: {
+      tree: {
+        uuid: string;
+        n: number;
+        content: OchreString | Array<OchreString>;
+      };
+      project: {
+        uuid: string;
+        n: number;
+        content: OchreString | Array<OchreString>;
+      };
+      displayPath: string;
+    };
+    displayPath: string;
+  };
+  project: {
+    identification: {
+      label: OchreString;
+      abbreviation: OchreString;
+    };
+  };
+  availability: {
+    license:
+      | string
+      | {
+          content: string;
+          target: string;
+        };
+  };
+  type: string;
+  uuid: string;
+  items: {
+    resource?: Array<OchreResource>;
+    concept?: Array<OchreConcept>;
+  };
+};
+
+export type OchreSetResponse = {
   ochre: {
     uuidBelongsTo: string;
     metadata: OchreMetadata;
-    set: {
+    set: OchreSet;
+    publicationDateTime: string;
+    belongsTo: string;
+    uuid: string;
+  };
+};
+
+export type OchreResourceResponse = {
+  ochre: {
+    uuidBelongsTo: string;
+    metadata: OchreMetadata;
+    languages: string;
+    publicationDateTime: string;
+    resource: OchreResource;
+    belongsTo: string;
+    uuid: string;
+  };
+};
+
+export type OchreTreeResponse = {
+  ochre: {
+    uuidBelongsTo: string;
+    metadata: OchreMetadata;
+    tree: {
       identification: {
         label: {
           lang: string;
-          content: Content | Content[];
+          content: OchreString | Array<OchreString>;
         };
+        abbreviation: {
+          rend: string;
+          lang: string;
+          content: OchreString | Array<OchreString>;
+        };
+      };
+      publicationDateTime: string;
+      type: string;
+      uuid: string;
+      items: {
+        resource?: Array<OchreResource>;
+        heading?: OchreHeading | Array<OchreHeading>;
+      };
+    };
+    publicationDateTime: string;
+    belongsTo: string;
+    uuid: string;
+  };
+};
+
+export type OchreConceptResponse = {
+  ochre: {
+    uuidBelongsTo: string;
+    metadata: OchreMetadata;
+    uuid: string;
+    belongsTo: string;
+    concept: {
+      identification: {
+        label: OchreString;
+        abbreviation: OchreString;
       };
       publicationDateTime: string;
       context: {
         context: {
           tree: {
+            publicationDateTime: string;
             uuid: string;
             n: number;
-            content: Content | Content[];
+            content: OchreString | Array<OchreString>;
           };
           project: {
             uuid: string;
             n: number;
-            content: Content | Content[];
+            content: OchreString | Array<OchreString>;
           };
           displayPath: string;
         };
@@ -233,33 +399,37 @@ export interface OchreSetData {
       };
       project: {
         identification: {
-          label: {
-            lang: string;
-            content: Content | Content[];
-          };
-          abbreviation: {
-            rend: string;
-            lang: string;
-            content: Content | Content[];
-          };
+          label: OchreString;
+          abbreviation: OchreString;
         };
       };
       availability: {
-        license: string;
+        license: {
+          content: string;
+          target: string;
+        };
       };
-      type: string;
-      uuid: string;
-      items: {
-        resource: OchreResource[];
+      interpretations: {
+        interpretation: {
+          interpretationNo: number;
+          date: string;
+          notes: {
+            note: OchreNote | Array<OchreNote>;
+          };
+          properties: {
+            property: {
+              property: OchreProperty | Array<OchreProperty>;
+            };
+          };
+        };
+        uuid: string;
+        n: number;
       };
     };
-    publicationDateTime: string;
-    belongsTo: string;
-    uuid: string;
   };
-}
+};
 
-export interface OchreMapItem {
+export type OchreItem = {
   ochre: {
     uuidBelongsTo: string;
     metadata: OchreMetadata;
@@ -267,4 +437,26 @@ export interface OchreMapItem {
     resource: OchreResource;
     uuid: string;
   };
-}
+};
+
+export type MappedInnerContent = {
+  text: string;
+  rend: Array<string>;
+  whitespace: Array<string>;
+  link: {
+    type: string;
+    uuid: string;
+    content: string;
+    dimensions: {
+      width: number;
+      height: number;
+    } | null;
+    rend: Array<string>;
+  } | null;
+};
+
+export type MappedContent = {
+  rend: Array<string>;
+  whitespace: Array<string>;
+  content: Array<MappedInnerContent>;
+};

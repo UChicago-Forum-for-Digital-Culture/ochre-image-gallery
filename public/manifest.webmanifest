@@ -1,0 +1,16 @@
+{
+  "name": "Guerrilla Television",
+  "short_name": "Guerrilla TV",
+  "description": "University of Chicago Library’s Guerrilla Television project",
+  "start_url": "/guerrilla-television/",
+  "display": "standalone",
+  "background_color": "#fff",
+  "theme_color": "#8B0021",
+  "icons": [
+    {
+      "src": "/guerrilla-television/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

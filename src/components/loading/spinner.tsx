@@ -2,16 +2,23 @@ import { cn } from "@/lib/utils";
 
 export default function LoadingSpinner({
   isDark = false,
+  className,
 }: {
   isDark?: boolean;
+  className?: string;
 }) {
   return (
     <div role="status">
       <svg
         aria-hidden="true"
-        className={cn("h-10 w-10 animate-spin fill-black text-[#c3c3c3]", {
-          "fill-white text-[#575757]": isDark,
-        })}
+        aria-label="Loading..."
+        className={cn(
+          "h-12 w-12 animate-spin fill-neutral-900 text-neutral-300",
+          className,
+          {
+            "fill-neutral-50 text-neutral-300/30": isDark,
+          },
+        )}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +32,6 @@ export default function LoadingSpinner({
           fill="currentFill"
         />
       </svg>
-      <span className="sr-only">Loading...</span>
     </div>
   );
 }
