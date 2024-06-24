@@ -1,33 +1,14 @@
-# OchreImageGallery Component
+# OCHRE Image Gallery
 
-This component produces a display of multiple images which can be styled to
-appear as block level search results or as a grid. Test at URLs like:
+This web application visualizes a grid of images for an appropraite OCHRE UUID input. Example:
 
-```
-http://localhost:3000/gallery/9c4da06b-f15e-40af-a747-0933eaf3587e
-```
-
-## Usage
-
-```javascript
-import OchreImageGallery from "OchreImageGallery";
-```
-
-```JSX
-<OchreImageGallery
- className="imagegallery"
- resultsPageInput={true}
- resultsPageInitial={page}
- resultsPerPageInput={true}
- resultsPerPageInitial={perPage}
- resultsPerPageOptions={[10, 20, 40]}
- showLabels={true}
- showLabelsInput={true}
- uuid={uuid}
-/>
+```bash
+https://node.uchicago.edu/image-gallery/9c4da06b-f15e-40af-a747-0933eaf3587e
 ```
 
 ## Implementation Notes
+
+### Author: John Jung ([@johnjung](https://github.com/johnjung))
 
 I reviewed several commercial websites and several academic library catalogs to see
 how a UI for paging is implemented.
@@ -51,7 +32,7 @@ per page should be encoded as parameters (after the ?). It's common to see value
 as URL parameters, and it frees us up to be able to add new parameters for things like sorting
 or filtering at a later date.
 
-After reviewing different approaches, URLs in the form /&lt;uuid&gt;?page=1&per_page=100 seem clearest.
+After reviewing different approaches, URLs in the form `/[uuid]?page=[PAGE]&per_page=[PER_PAGE]` seem clearest.
 
 ## Test Cases
 
