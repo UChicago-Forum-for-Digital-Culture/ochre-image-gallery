@@ -9,7 +9,7 @@ export default function FormButton() {
   return (
     <button
       className={cn(
-        "mt-1 grid w-full grid-flow-col gap-2 justify-self-center rounded-sm bg-gradient-to-b from-brand-700 to-brand-800 py-2.5 pl-2.5 pr-2 font-sans font-semibold tracking-[0.3px] text-brand-50 shadow-md hover-xs active-lg active:rounded-sm sm:w-[250px] sm:justify-self-start",
+        "mt-1 grid w-full grid-flow-col gap-2 rounded-sm bg-gradient-to-b from-brand-700 to-brand-800 py-2.5 pl-2.5 pr-2 font-sans font-semibold tracking-[0.3px] text-brand-50 shadow-md hover-xs active-lg active:rounded-sm",
         { "pointer-events-none select-none": pending },
       )}
     >
