@@ -19,7 +19,7 @@ export default function FormButton() {
         </div>
       : <>
           <div className="col-start-1 col-end-2 row-start-1 row-end-2 self-center justify-self-center">
-            view gallery
+            View gallery
           </div>
           <SquareArrowOutUpRightIcon
             className="col-start-1 col-end-2 row-start-1 row-end-2 h-[18px] w-auto self-center justify-self-end"
