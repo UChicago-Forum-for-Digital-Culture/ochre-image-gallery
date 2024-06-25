@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     default: "OCHRE Image Gallery",
   },
   description: "OCHRE Image Gallery",
-  manifest: "manifest.webmanifest",
+  manifest: "/image-gallery/manifest.webmanifest",
   icons: [
     { rel: "icon", url: "/image-gallery/favicon.ico" },
     {

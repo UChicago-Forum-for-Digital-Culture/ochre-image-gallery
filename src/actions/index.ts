@@ -1,22 +1,19 @@
 "use server";
 
-import { isValidUUID } from "@/lib/utils";
+import { actionClient } from "@/lib/safe-action";
 import { redirect } from "next/navigation";
+import { z } from "zod";
+import { zfd } from "zod-form-data";
 
-export async function handleUuidRoute(prevState: unknown, formData: FormData) {
-  const uuid = formData.get("uuid") as string;
-  if (!uuid) {
-    return {
-      message: "Please enter a UUID value.",
-    };
-  }
-
-  if (!isValidUUID(uuid)) {
-    return {
+const schema = zfd.formData({
+  uuid: zfd.text(
+    z.string().uuid({
       message:
         "The UUID value you have entered is not valid, please try again.",
-    };
-  }
+    }),
+  ),
+});
 
-  redirect(`/${uuid}`);
-}
+export const handleUuidRoute = actionClient
+  .schema(schema)
+  .action(async ({ parsedInput: { uuid } }) => redirect(`/${uuid}`));

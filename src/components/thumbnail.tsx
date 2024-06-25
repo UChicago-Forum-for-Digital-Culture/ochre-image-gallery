@@ -16,7 +16,7 @@ const GalleryThumbnail = ({ uuid, title }: { uuid: string; title: string }) => {
       href={`https://ochre.lib.uchicago.edu/ochre?uuid=${encodeURIComponent(uuid)}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="grid w-[300px] rounded-sm bg-gradient-to-b from-neutral-700 to-neutral-800 font-sans font-medium text-white shadow-sm hover-xs active-md active:rounded-sm"
+      className="grid w-[300px] overflow-hidden rounded-sm bg-gradient-to-b from-neutral-700 to-neutral-800 font-sans font-medium text-white shadow-sm hover-xs active-md active:rounded-sm"
     >
       <div className="grid h-[200px] w-[300px] items-center justify-center">
         <div

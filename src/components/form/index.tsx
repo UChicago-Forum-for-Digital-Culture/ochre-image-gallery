@@ -2,26 +2,31 @@
 
 import { handleUuidRoute } from "@/actions";
 import FormButton from "@/components/form-button";
-import { useEffect } from "react";
-import { useFormState as useActionState } from "react-dom";
+import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 
-const initialState = {
-  message: "",
-};
-
 export default function Form() {
-  const [state, formAction] = useActionState(handleUuidRoute, initialState);
+  const { execute } = useAction(handleUuidRoute, {
+    onSuccess: () => {
+      toast.dismiss();
+    },
+    onError: ({ error }) => {
+      const validationErrors = error?.validationErrors?.fieldErrors?.uuid;
+      if (Array.isArray(validationErrors) && validationErrors.length > 0) {
+        const error = validationErrors
+          .map((error) =>
+            error === "Required" ? "Please enter a UUID value." : error,
+          )
+          .join(" ");
 
-  useEffect(() => {
-    if (state?.message) {
-      toast(state.message);
-    }
-  }, [state]);
+        toast(error);
+      }
+    },
+  });
 
   return (
     <form
-      action={formAction}
+      action={execute}
       className="-mt-4 grid h-full w-full content-center gap-1.5 sm:gap-2"
     >
       <div className="px-4 text-center font-sans text-base font-semibold leading-6 sm:px-2 sm:text-start sm:text-xl sm:font-medium">
