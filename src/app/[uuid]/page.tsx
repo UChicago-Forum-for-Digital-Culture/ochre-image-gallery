@@ -1,8 +1,8 @@
 import Gallery from "@/components/gallery";
 import { getContent } from "@/lib/utils";
 import type { OchreTreeResponse } from "@/types";
-import { TriangleAlertIcon } from "lucide-react";
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
@@ -17,8 +17,13 @@ export async function generateMetadata({
   );
   const data = (await response.json()) as OchreTreeResponse;
 
+  const title = getContent(data.ochre?.tree?.identification?.label?.content);
+  if (!title) {
+    notFound();
+  }
+
   return {
-    title: getContent(data.ochre.tree.identification.label.content),
+    title: title,
   };
 }
 
@@ -28,13 +33,8 @@ export default async function Page({ params }: { params: { uuid: string } }) {
   );
   const data = (await response.json()) as OchreTreeResponse;
 
-  if (!data.ochre.tree.items.resource) {
-    return (
-      <div className="absolute bottom-0 left-0 right-0 top-0 grid content-center justify-items-center gap-1.5 text-center font-sans text-xl font-semibold text-black md:mt-20">
-        <TriangleAlertIcon className="h-14 w-auto" />
-        Something went wrong, please try again later.
-      </div>
-    );
+  if (!data?.ochre?.tree?.items?.resource) {
+    notFound();
   }
 
   return (
