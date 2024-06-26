@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { SquareArrowOutUpRightIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 import { useFormStatus } from "react-dom";
 import LoadingSpinner from "./loading/spinner";
 
@@ -9,7 +9,7 @@ export default function FormButton() {
   return (
     <button
       className={cn(
-        "mt-1 grid w-full grid-flow-col gap-2 rounded-sm bg-gradient-to-b from-brand-700 to-brand-800 py-2.5 pl-2.5 pr-2 font-sans font-semibold tracking-[0.3px] text-brand-50 shadow-md hover-xs active-lg active:rounded-sm",
+        "mt-1 grid w-full grid-flow-col gap-2 rounded-sm bg-gradient-to-b from-brand-700 to-brand-800 py-2.5 pl-2.5 pr-2 font-sans font-semibold tracking-[0.3px] text-brand-50 shadow-md hover-xs active-md hover:scale-[1.01] active:scale-[0.99] active:rounded-sm",
         { "pointer-events-none select-none": pending },
       )}
     >
@@ -21,8 +21,8 @@ export default function FormButton() {
           <div className="col-start-1 col-end-2 row-start-1 row-end-2 self-center justify-self-center">
             View gallery
           </div>
-          <SquareArrowOutUpRightIcon
-            className="col-start-1 col-end-2 row-start-1 row-end-2 h-[18px] w-auto self-center justify-self-end"
+          <ArrowRightIcon
+            className="col-start-1 col-end-2 row-start-1 row-end-2 -mr-px h-5 w-auto self-center justify-self-end"
             strokeWidth={2.75}
           />
         </>

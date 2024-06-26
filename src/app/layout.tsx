@@ -8,6 +8,7 @@ const TailwindIndicator = dynamic(
   () => import("@/components/dev/tailwind-indicator"),
   { ssr: false, loading: () => null },
 );
+
 export const metadata: Metadata = {
   title: {
     template: "%s - OCHRE Image Gallery",
@@ -72,7 +73,7 @@ export default function RootLayout({
       className={`font-display ${inter.variable} ${figtree.variable}`}
       suppressHydrationWarning
     >
-      <body className="h-[100dvh] w-[100dvw] overflow-x-hidden overflow-y-scroll">
+      <body className="h-[100dvh] w-[100dvw] overflow-x-hidden overflow-y-scroll bg-gradient-to-b from-neutral-200 to-neutral-300 text-neutral-900">
         <Providers>
           {children}
           <Toaster />
