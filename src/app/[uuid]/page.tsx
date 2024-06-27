@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import Gallery from "@/components/gallery";
 import { getContent } from "@/lib/utils";
 import type { OchreTreeResponse } from "@/types";
@@ -37,5 +38,12 @@ export default async function Page({ params }: { params: { uuid: string } }) {
     notFound();
   }
 
-  return <Gallery data={data.ochre.tree.items.resource} />;
+  return (
+    <div className="grid w-full grid-rows-[1fr_auto] items-start">
+      <div className="grid w-[100dvw] justify-items-center">
+        <Gallery data={data.ochre.tree.items.resource} />
+      </div>
+      <Footer />
+    </div>
+  );
 }

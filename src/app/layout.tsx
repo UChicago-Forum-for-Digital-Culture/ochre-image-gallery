@@ -73,10 +73,12 @@ export default function RootLayout({
       className={`font-display ${inter.variable} ${figtree.variable}`}
       suppressHydrationWarning
     >
-      <body className="flex h-[100dvh] w-full flex-col overflow-x-hidden overflow-y-scroll bg-neutral-200 bg-no-repeat text-neutral-900">
+      <body className="overflow-x-hidden overflow-y-scroll bg-neutral-200 bg-no-repeat text-neutral-900">
         <Providers>
-          <main className="h-full flex-grow">
-            <div className="mx-auto grid max-w-7xl gap-5 p-4">{children}</div>
+          <main className="h-full">
+            <div className="mx-auto grid h-[100dvh] w-[100dvw] gap-5">
+              {children}
+            </div>
             <Toaster />
             <TailwindIndicator />
           </main>

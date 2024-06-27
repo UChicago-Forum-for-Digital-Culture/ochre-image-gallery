@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { PER_PAGE_OPTIONS, useParams } from "./use-params";
 
 export function useCheckParams() {
-  const [{ page, ["per_page"]: perPage }, setState] = useParams();
+  const [{ page, per_page: perPage }, setState] = useParams();
 
   const hasChecked = useRef(false);
 

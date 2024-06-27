@@ -7,7 +7,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     <>
       {children}
       <ProgressBar
-        color="#0D87D3"
+        color="#bd002c"
         delay={300}
         shallowRouting={true}
         disableSameURL={false}

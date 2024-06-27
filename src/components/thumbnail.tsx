@@ -27,10 +27,11 @@ const GalleryThumbnail = ({ uuid, title }: { uuid: string; title: string }) => {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              "grid w-[300px] overflow-hidden rounded-sm bg-gradient-to-b from-white to-neutral-100 font-sans font-medium text-neutral-800 shadow-md",
+              "group grid w-[300px] overflow-hidden rounded-sm bg-gradient-to-b from-white to-neutral-100 font-sans font-medium text-neutral-800 shadow-md",
               { "pointer-events-none": isLoading || isError },
               {
-                "hover-xs active-md active:rounded-sm": !isLoading && !isError,
+                "hover-xs active-md hover:brightness-100 active:rounded-sm":
+                  !isLoading && !isError,
               },
             )}
           >
@@ -77,11 +78,13 @@ const GalleryThumbnail = ({ uuid, title }: { uuid: string; title: string }) => {
                     setIsLoading(false);
                     setIsError(true);
                   }}
-                  className="h-[200px] w-[300px] object-cover object-center transition-all"
+                  className="h-[200px] w-[300px] bg-[#ffffff] object-contain object-center transition-all"
                 />
               </div>
             </div>
-            <div className="py-1 text-center tracking-[0.2px]">{title}</div>
+            <div className="bg-gradient-to-b from-neutral-100 from-10% via-neutral-200 via-60% to-neutral-300 to-100% py-1 text-center tracking-[0.2px] transition-raise group-hover:brightness-hover group-active:shadow-inset-sm group-active:brightness-active">
+              {title}
+            </div>
           </Link>
         </TooltipTrigger>
         <TooltipContent className="grid grid-flow-col items-center justify-center gap-1.5 pr-2">
