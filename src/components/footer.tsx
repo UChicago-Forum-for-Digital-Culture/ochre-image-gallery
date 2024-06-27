@@ -10,6 +10,7 @@ export default function Footer() {
           href="https://digitalculture.uchicago.edu"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="The University of Chicago Forum for Digital Culture"
           className="justify-self-center"
         >
           <ForumIcon className="h-7 w-auto" />
@@ -19,6 +20,7 @@ export default function Footer() {
           href="https://ochre.uchicago.edu"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="The OCHRE Data Service"
           className="grid grid-flow-col items-center justify-center gap-x-1 text-nowrap text-sm font-medium text-brand-900/80"
         >
           <span className="select-none text-[0.8rem]">Powered by OCHRE</span>

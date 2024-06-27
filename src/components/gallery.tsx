@@ -61,6 +61,7 @@ const UnmemoizedPageButtons = ({ maxPages }: { maxPages: number }) => {
     <div className="grid grid-flow-col items-center justify-center gap-x-1.5">
       <button
         onClick={async () => (page > 1 ? await setState({ page: 1 }) : null)}
+        aria-label="Go to the first page"
         className={cn(
           "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-white to-neutral-200 font-sans font-medium tabular-nums text-brand-700 shadow-md hover-sm active-md hover:rounded-full active:rounded-full",
           { disabled: page === 1 },
@@ -72,6 +73,7 @@ const UnmemoizedPageButtons = ({ maxPages }: { maxPages: number }) => {
         onClick={async () =>
           page > 1 ? await setState({ page: page - 1 }) : null
         }
+        aria-label="Go to the previous page"
         className={cn(
           "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-white to-neutral-200 font-sans font-medium tabular-nums text-brand-700 shadow-md hover-sm active-md hover:rounded-full active:rounded-full",
           { disabled: page === 1 },
@@ -90,6 +92,7 @@ const UnmemoizedPageButtons = ({ maxPages }: { maxPages: number }) => {
         onClick={async () =>
           page < maxPages ? await setState({ page: page + 1 }) : null
         }
+        aria-label="Go to the next page"
         className={cn(
           "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-white to-neutral-200 font-sans font-medium tabular-nums text-brand-700 shadow-md hover-sm active-md hover:rounded-full active:rounded-full",
           { disabled: page === maxPages },
@@ -101,6 +104,7 @@ const UnmemoizedPageButtons = ({ maxPages }: { maxPages: number }) => {
         onClick={async () =>
           page < maxPages ? await setState({ page: maxPages }) : null
         }
+        aria-label="Go to the last page"
         className={cn(
           "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-white to-neutral-200 font-sans font-medium tabular-nums text-brand-700 shadow-md hover-sm active-md hover:rounded-full active:rounded-full",
           { disabled: page === maxPages },
@@ -182,17 +186,17 @@ export default function Gallery({ data }: { data: Array<OchreResource> }) {
             <ArrowLeftIcon className="h-[17px] w-auto" strokeWidth={2.75} />
             Back
           </Link>
-          <div className="text-balance font-sans text-lg font-semibold tabular-nums leading-6 tracking-[0.2px] md:text-xl">
+          <h1 className="text-balance font-sans text-lg font-semibold tabular-nums leading-6 tracking-[0.2px] md:text-xl">
             {data.length.toLocaleString("en-US")}
             {" items"}
-            <span className="text-base text-neutral-500 md:text-lg">
+            <span className="text-base text-neutral-600 md:text-lg">
               {" (showing "}
               {((page - 1) * perPage + 1).toLocaleString("en-US")}
               {"-"}
               {Math.min(data.length, page * perPage).toLocaleString("en-US")}
               {")"}
             </span>
-          </div>
+          </h1>
         </div>
         <div className="grid items-center justify-center gap-x-2 gap-y-1.5 md:grid-flow-col">
           <div className="grid grid-flow-col items-center justify-center gap-x-1.5">

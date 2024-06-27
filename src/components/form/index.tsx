@@ -102,9 +102,9 @@ export default function Form({ isMobile }: { isMobile: boolean }) {
         action={execute}
         className="grid content-center gap-1.5 self-end sm:gap-2"
       >
-        <div className="mb-0.5 text-center font-sans text-base font-semibold leading-6 sm:px-2.5 sm:text-start sm:text-xl sm:font-medium">
+        <label className="mb-0.5 text-center font-sans text-base font-semibold leading-6 sm:px-2.5 sm:text-start sm:text-xl sm:font-medium">
           Enter an OCHRE UUID to view as a gallery:
-        </div>
+        </label>
         <input
           ref={inputRef}
           name="uuid"
