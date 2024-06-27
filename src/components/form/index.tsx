@@ -102,7 +102,7 @@ export default function Form({ isMobile }: { isMobile: boolean }) {
         action={execute}
         className="-mt-4 grid h-full w-full content-center gap-1.5 sm:gap-2"
       >
-        <div className="mb-0.5 text-center font-sans text-base font-semibold leading-6 sm:px-[7px] sm:text-start sm:text-xl sm:font-medium">
+        <div className="mb-0.5 text-center font-sans text-base font-semibold leading-6 sm:px-2.5 sm:text-start sm:text-xl sm:font-medium">
           Enter an OCHRE UUID to view as a gallery:
         </div>
         <input
@@ -113,7 +113,7 @@ export default function Form({ isMobile }: { isMobile: boolean }) {
           autoCapitalize="false"
           autoCorrect="false"
           autoFocus={!isMobile}
-          className="h-12 w-full rounded-sm bg-gradient-to-b from-white to-neutral-100 p-2 shadow-md transition-all focus:from-white focus:to-white focus:outline-none focus:ring-2 focus:ring-brand-600 sm:h-14"
+          className="h-12 w-full rounded-sm bg-gradient-to-b from-white to-neutral-100 px-3 py-2 shadow-md transition-all focus:from-white focus:to-white focus:outline-none focus:ring-2 focus:ring-brand-600 sm:h-14"
           placeholder="Example: 9c4da06b-f15e-40af-a747-0933eaf3587e"
         />
         <FormButton />
