@@ -1,11 +1,7 @@
 "use client";
 
 import { useCheckParams } from "@/hooks/use-check-params";
-import {
-  DEFAULT_PER_PAGE,
-  PER_PAGE_OPTIONS,
-  useParams,
-} from "@/hooks/use-params";
+import { PER_PAGE_OPTIONS, useParams } from "@/hooks/use-params";
 import { cn, getContent } from "@/lib/utils";
 import type { OchreResource } from "@/types";
 import {
@@ -32,7 +28,7 @@ const UnmemoizedPerPageButton = ({
     }
 
     await setState({
-      page: DEFAULT_PER_PAGE,
+      page: 1,
       per_page: value,
     });
 
@@ -63,7 +59,7 @@ const UnmemoizedPageButtons = ({ maxPages }: { maxPages: number }) => {
   return (
     <div className="grid grid-flow-col items-center justify-center gap-x-1.5">
       <button
-        onClick={async () => await setState({ page: DEFAULT_PER_PAGE })}
+        onClick={async () => await setState({ page: 1 })}
         className={cn(
           "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-white to-neutral-200 font-sans font-medium tabular-nums text-brand-700 shadow-md hover-sm active-md hover:rounded-full active:rounded-full",
           { disabled: page === 1 },
