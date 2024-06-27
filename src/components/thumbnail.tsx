@@ -27,7 +27,7 @@ const GalleryThumbnail = ({ uuid, title }: { uuid: string; title: string }) => {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              "grid w-[300px] overflow-hidden rounded-sm bg-gradient-to-b from-white to-neutral-100 font-sans font-medium text-neutral-800 shadow-sm",
+              "grid w-[300px] overflow-hidden rounded-sm bg-gradient-to-b from-white to-neutral-100 font-sans font-medium text-neutral-800 shadow-md",
               { "pointer-events-none": isLoading || isError },
               {
                 "hover-xs active-md active:rounded-sm": !isLoading && !isError,
@@ -77,7 +77,7 @@ const GalleryThumbnail = ({ uuid, title }: { uuid: string; title: string }) => {
                     setIsLoading(false);
                     setIsError(true);
                   }}
-                  className="h-[200px] w-[300px] object-contain object-center transition-all"
+                  className="h-[200px] w-[300px] object-cover object-center transition-all"
                 />
               </div>
             </div>

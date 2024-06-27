@@ -1,5 +1,6 @@
 "use client";
 
+import { useCheckParams } from "@/hooks/use-check-params";
 import {
   DEFAULT_PER_PAGE,
   PER_PAGE_OPTIONS,
@@ -31,8 +32,8 @@ const UnmemoizedPerPageButton = ({
     }
 
     await setState({
-      page: null,
-      ["per_page"]: value === DEFAULT_PER_PAGE ? null : value,
+      page: DEFAULT_PER_PAGE,
+      per_page: value,
     });
 
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -43,7 +44,7 @@ const UnmemoizedPerPageButton = ({
       key={`results-per-page-${value}`}
       onClick={handleClick}
       className={cn(
-        "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-brand-50 to-brand-100 font-sans font-medium tabular-nums text-brand-700 shadow-sm hover-sm active-md hover:rounded-full active:rounded-full",
+        "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-white to-neutral-200 font-sans font-medium tabular-nums text-brand-700 shadow-md hover-sm active-md hover:rounded-full active:rounded-full",
         {
           "from-brand-700 to-brand-800 text-brand-50": value === perPage,
         },
@@ -62,20 +63,18 @@ const UnmemoizedPageButtons = ({ maxPages }: { maxPages: number }) => {
   return (
     <div className="grid grid-flow-col items-center justify-center gap-x-1.5">
       <button
-        onClick={async () => await setState({ page: null })}
+        onClick={async () => await setState({ page: DEFAULT_PER_PAGE })}
         className={cn(
-          "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-brand-50 to-brand-100 font-sans font-medium tabular-nums text-brand-700 shadow-sm hover-sm active-md hover:rounded-full active:rounded-full",
+          "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-white to-neutral-200 font-sans font-medium tabular-nums text-brand-700 shadow-md hover-sm active-md hover:rounded-full active:rounded-full",
           { disabled: page === 1 },
         )}
       >
         <ChevronsLeftIcon className="-ml-0.5 h-6 w-auto" strokeWidth={2.5} />
       </button>
       <button
-        onClick={async () =>
-          await setState({ page: page - 1 === 1 ? null : page - 1 })
-        }
+        onClick={async () => await setState({ page: page - 1 })}
         className={cn(
-          "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-brand-50 to-brand-100 font-sans font-medium tabular-nums text-brand-700 shadow-sm hover-sm active-md hover:rounded-full active:rounded-full",
+          "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-white to-neutral-200 font-sans font-medium tabular-nums text-brand-700 shadow-md hover-sm active-md hover:rounded-full active:rounded-full",
           { disabled: page === 1 },
         )}
       >
@@ -91,7 +90,7 @@ const UnmemoizedPageButtons = ({ maxPages }: { maxPages: number }) => {
       <button
         onClick={async () => await setState({ page: page + 1 })}
         className={cn(
-          "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-brand-50 to-brand-100 font-sans font-medium tabular-nums text-brand-700 shadow-sm hover-sm active-md hover:rounded-full active:rounded-full",
+          "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-white to-neutral-200 font-sans font-medium tabular-nums text-brand-700 shadow-md hover-sm active-md hover:rounded-full active:rounded-full",
           { disabled: page === maxPages },
         )}
       >
@@ -100,7 +99,7 @@ const UnmemoizedPageButtons = ({ maxPages }: { maxPages: number }) => {
       <button
         onClick={async () => await setState({ page: maxPages })}
         className={cn(
-          "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-brand-50 to-brand-100 font-sans font-medium tabular-nums text-brand-700 shadow-sm hover-sm active-md hover:rounded-full active:rounded-full",
+          "grid h-8 w-8 items-center justify-center rounded-full bg-gradient-to-b from-white to-neutral-200 font-sans font-medium tabular-nums text-brand-700 shadow-md hover-sm active-md hover:rounded-full active:rounded-full",
           { disabled: page === maxPages },
         )}
       >
@@ -115,13 +114,15 @@ const PageButtons = memo(UnmemoizedPageButtons);
 export default function Gallery({ data }: { data: Array<OchreResource> }) {
   const [{ page, ["per_page"]: perPage }] = useParams();
 
+  useCheckParams();
+
   return (
     <div className="grid gap-2">
       <div className="grid items-center gap-2 md:grid-flow-col md:justify-between md:gap-1.5">
         <div className="grid grid-flow-col items-center justify-start gap-2 md:justify-start">
           <Link
             href="/"
-            className="-mt-0.5 grid grid-flow-col items-center justify-center gap-x-0.5 justify-self-start rounded-sm bg-gradient-to-b from-neutral-50 to-neutral-300 px-2 py-1 font-sans font-medium tabular-nums tracking-[0.2px] text-brand-800 shadow-md hover-xs active-md active:rounded-sm"
+            className="-mt-0.5 grid grid-flow-col items-center justify-center gap-x-0.5 justify-self-start rounded-sm bg-gradient-to-b from-white to-neutral-200 px-2 py-1 font-sans font-medium tabular-nums tracking-[0.2px] text-brand-800 shadow-md hover-xs active-md active:rounded-sm"
           >
             <ArrowLeftIcon className="h-[17px] w-auto" strokeWidth={2.75} />
             Back

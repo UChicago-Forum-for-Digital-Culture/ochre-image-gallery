@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRef } from "react";
 
 import { toast } from "sonner";
+import { useEventListener } from "usehooks-ts";
 
 export default function Form({ isMobile }: { isMobile: boolean }) {
   const { execute } = useAction(handleUuidRoute, {
@@ -31,6 +32,70 @@ export default function Form({ isMobile }: { isMobile: boolean }) {
 
   const inputRef = useRef<HTMLInputElement>(null);
 
+  useEventListener("keydown", (e) => {
+    if (!inputRef.current) {
+      return;
+    }
+
+    if (inputRef.current.contains(document.activeElement)) {
+      if (e.key === "Escape") {
+        if (inputRef.current.value === "") {
+          inputRef.current.blur();
+        } else {
+          inputRef.current.value = "";
+        }
+      }
+
+      return;
+    }
+
+    if (
+      e.key === "Escape" ||
+      e.key === "Enter" ||
+      (e.metaKey && e.key !== "k" && e.key !== "v") ||
+      e.ctrlKey ||
+      e.altKey ||
+      e.shiftKey ||
+      e.key === "ArrowLeft" ||
+      e.key === "ArrowRight" ||
+      e.key === "ArrowUp" ||
+      e.key === "ArrowDown" ||
+      e.key === "Tab" ||
+      e.key === "PageUp" ||
+      e.key === "PageDown" ||
+      e.key === "Home" ||
+      e.key === "End" ||
+      e.key === "Help"
+    ) {
+      return;
+    }
+
+    if (e.metaKey && e.key === "v") {
+      e.preventDefault();
+
+      navigator.clipboard
+        .readText()
+        .then((text) => {
+          if (!text || !inputRef.current) {
+            return;
+          }
+
+          const inputValue = inputRef.current.value;
+
+          inputRef.current.value = `${inputValue.trim()} ${text.trim()}`;
+
+          inputRef.current.focus();
+        })
+        .catch((err) =>
+          console.error("Error reading text from clipboard:", err),
+        );
+
+      return;
+    }
+
+    inputRef.current.focus();
+  });
+
   return (
     <>
       <form
@@ -48,7 +113,7 @@ export default function Form({ isMobile }: { isMobile: boolean }) {
           autoCapitalize="false"
           autoCorrect="false"
           autoFocus={!isMobile}
-          className="h-12 w-full rounded-sm bg-gradient-to-b from-white to-neutral-100 p-2 transition-all focus:from-white focus:to-white focus:outline-none focus:ring-2 focus:ring-brand-600 sm:h-14"
+          className="h-12 w-full rounded-sm bg-gradient-to-b from-white to-neutral-100 p-2 shadow-md transition-all focus:from-white focus:to-white focus:outline-none focus:ring-2 focus:ring-brand-600 sm:h-14"
           placeholder="Example: 9c4da06b-f15e-40af-a747-0933eaf3587e"
         />
         <FormButton />
@@ -56,7 +121,7 @@ export default function Form({ isMobile }: { isMobile: boolean }) {
           href="/9c4da06b-f15e-40af-a747-0933eaf3587e"
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-1 grid w-full grid-flow-col gap-2 rounded-sm bg-gradient-to-b from-neutral-50 to-neutral-300 py-2.5 pl-2.5 pr-2 font-sans font-semibold tracking-[0.3px] text-brand-800 shadow-md hover-xs active-md hover:scale-[1.01] active:scale-[0.99] active:rounded-sm"
+          className="mt-1 grid w-full grid-flow-col gap-2 rounded-sm bg-gradient-to-b from-white to-neutral-200 py-2.5 pl-2.5 pr-2 font-sans font-semibold tracking-[0.3px] text-brand-800 shadow-md hover-xs active-md hover:scale-[1.01] active:scale-[0.99] active:rounded-sm"
         >
           <div className="col-start-1 col-end-2 row-start-1 row-end-2 self-center justify-self-center">
             View example
