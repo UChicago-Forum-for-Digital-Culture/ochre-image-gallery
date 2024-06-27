@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     },
     {
       rel: "mask-icon",
-      color: "#0d87d3",
+      color: "#bd002c",
       url: "/image-gallery/safari-pinned-tab.svg",
     },
   ],
@@ -73,11 +73,13 @@ export default function RootLayout({
       className={`font-display ${inter.variable} ${figtree.variable}`}
       suppressHydrationWarning
     >
-      <body className="h-[100dvh] w-[100dvw] overflow-x-hidden overflow-y-scroll bg-gradient-to-b from-neutral-200 to-neutral-300 text-neutral-900">
+      <body className="flex h-[100dvh] w-full flex-col overflow-x-hidden overflow-y-scroll bg-neutral-200 bg-no-repeat text-neutral-900">
         <Providers>
-          {children}
-          <Toaster />
-          <TailwindIndicator />
+          <main className="h-full flex-grow">
+            <div className="mx-auto grid max-w-7xl gap-5 p-4">{children}</div>
+            <Toaster />
+            <TailwindIndicator />
+          </main>
         </Providers>
       </body>
     </html>

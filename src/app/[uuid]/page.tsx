@@ -37,9 +37,5 @@ export default async function Page({ params }: { params: { uuid: string } }) {
     notFound();
   }
 
-  return (
-    <main className="mx-auto grid max-w-7xl gap-5 p-4">
-      <Gallery data={data.ochre.tree.items.resource} />
-    </main>
-  );
+  return <Gallery data={data.ochre.tree.items.resource} />;
 }
