@@ -20,6 +20,10 @@ export default function Gallery({ items }: { items: Array<OchreResource> }) {
 
   useEventListener("keydown", (e) => {
     async function handleKeyDown() {
+      if (document.activeElement?.tagName === "INPUT") {
+        return;
+      }
+
       if (e.key === "ArrowLeft") {
         if (e.shiftKey) {
           await setState({
