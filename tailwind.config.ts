@@ -168,6 +168,7 @@ const config = {
         },
       });
     },
+    require("tailwindcss-animate"),
   ],
 } satisfies Config;
 

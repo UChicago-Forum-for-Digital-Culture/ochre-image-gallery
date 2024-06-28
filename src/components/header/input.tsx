@@ -1,15 +1,29 @@
 "use client";
 
 import { handleUuidRoute } from "@/actions";
-import FormButton from "@/components/form-button";
-import { SquareArrowOutUpRightIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
-import Link from "next/link";
 import { useRef } from "react";
+import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 import { useEventListener } from "usehooks-ts";
+import LoadingSpinner from "../loading/spinner";
 
-export default function Form({ isMobile }: { isMobile: boolean }) {
+function FormButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <button className="grid h-9 w-9 items-center justify-center rounded-r-sm bg-gradient-to-b from-accent-500 to-accent-600 text-accent-950 shadow-sm hover-sm active-sm hover:rounded-r-sm active:scale-100 active:rounded-r-sm">
+      {pending ?
+        <div className="grid items-center justify-center">
+          <LoadingSpinner className="h-5 w-auto text-accent-200" />
+        </div>
+      : <ArrowRightIcon className="h-5 w-auto" strokeWidth={3} />}
+    </button>
+  );
+}
+
+export default function Input() {
   const { execute } = useAction(handleUuidRoute, {
     onSuccess: () => {
       toast.dismiss();
@@ -97,41 +111,21 @@ export default function Form({ isMobile }: { isMobile: boolean }) {
   });
 
   return (
-    <>
-      <form
-        action={execute}
-        className="grid content-center gap-1.5 self-end sm:gap-2"
-      >
-        <label className="mb-0.5 text-center font-sans text-base font-semibold leading-6 sm:px-2.5 sm:text-start sm:text-xl sm:font-medium">
-          Enter an OCHRE UUID to view as a gallery:
-        </label>
-        <input
-          ref={inputRef}
-          name="uuid"
-          type="text"
-          enterKeyHint="enter"
-          autoCapitalize="false"
-          autoCorrect="false"
-          autoFocus={!isMobile}
-          className="h-12 w-full rounded-sm bg-gradient-to-b from-white to-neutral-100 px-3 py-2 shadow-md transition-all placeholder:text-neutral-400 focus:from-white focus:to-white focus:outline-none focus:ring-2 focus:ring-brand-600 dark:from-neutral-900 dark:to-neutral-950 dark:placeholder:text-neutral-500 sm:h-14"
-          placeholder="Example: 9c4da06b-f15e-40af-a747-0933eaf3587e"
-        />
-        <FormButton />
-        <Link
-          href="/9c4da06b-f15e-40af-a747-0933eaf3587e"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-1 grid w-full grid-flow-col gap-2 rounded-sm bg-gradient-to-b from-white to-neutral-200 py-2.5 pl-2.5 pr-2 font-sans font-semibold tracking-[0.3px] text-brand-800 shadow-md hover-xs active-md hover:scale-[1.01] active:scale-[0.99] active:rounded-sm dark:from-neutral-600 dark:to-neutral-700 dark:text-white"
-        >
-          <div className="col-start-1 col-end-2 row-start-1 row-end-2 self-center justify-self-center">
-            View example
-          </div>
-          <SquareArrowOutUpRightIcon
-            className="col-start-1 col-end-2 row-start-1 row-end-2 h-[18px] w-auto self-center justify-self-end"
-            strokeWidth={2.75}
-          />
-        </Link>
-      </form>
-    </>
+    <form
+      action={execute}
+      className="hidden grid-flow-col items-center md:grid"
+    >
+      <input
+        ref={inputRef}
+        name="uuid"
+        type="text"
+        enterKeyHint="enter"
+        autoCapitalize="false"
+        autoCorrect="false"
+        className="h-9 w-[350px] rounded-l-sm bg-gradient-to-b from-white to-neutral-100 px-2 shadow-sm transition-all placeholder:text-neutral-400 focus:z-10 focus:rounded-sm focus:from-white focus:to-white focus:outline-none focus:ring-2 focus:ring-accent-400 dark:from-neutral-800 dark:to-neutral-900 dark:placeholder:text-neutral-400/70"
+        placeholder="Enter an OCHRE UUID..."
+      />
+      <FormButton />
+    </form>
   );
 }

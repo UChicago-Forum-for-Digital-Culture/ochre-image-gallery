@@ -73,7 +73,7 @@ export default function RootLayout({
       className={`font-display ${inter.variable} ${figtree.variable}`}
       suppressHydrationWarning
     >
-      <body className="overflow-x-hidden overflow-y-scroll bg-neutral-200 bg-no-repeat text-neutral-900">
+      <body className="overflow-x-hidden overflow-y-scroll bg-neutral-200 bg-no-repeat text-neutral-900 dark:bg-neutral-800 dark:text-neutral-50">
         <Providers>
           <main className="h-full">
             <div className="mx-auto grid h-[100dvh] w-[100dvw] gap-5">

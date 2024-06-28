@@ -1,9 +1,7 @@
 "use client";
 
+import { DEFAULT_PER_PAGE, PER_PAGE_OPTIONS } from "@/lib/utils";
 import { parseAsInteger, parseAsNumberLiteral, useQueryStates } from "nuqs";
-
-export const DEFAULT_PER_PAGE = 12;
-export const PER_PAGE_OPTIONS = [12, 24, 48] as const;
 
 export function useParams() {
   const params = useQueryStates(

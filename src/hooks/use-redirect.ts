@@ -9,6 +9,7 @@ export function useRedirect() {
 
   useEffect(() => {
     if (!hasRedirected.current) {
+      toast.dismiss();
       toast("Redirecting you to the homepage...");
       setTimeout(() => router.push("/"), 3000);
       hasRedirected.current = true;

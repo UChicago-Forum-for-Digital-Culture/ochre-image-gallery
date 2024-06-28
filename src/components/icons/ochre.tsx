@@ -1,9 +1,11 @@
+import { cn } from "@/lib/utils";
+
 export default function OchreIcon({ className }: { className?: string }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 380 380"
-      className={className}
+      className={cn("dark:brightness-125 dark:grayscale", className)}
     >
       <g id="bg">
         <path fill="none" d="M0 0h380v380H0z" />

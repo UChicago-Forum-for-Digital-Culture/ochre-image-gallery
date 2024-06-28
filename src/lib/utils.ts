@@ -2,6 +2,9 @@ import type { OchreString } from "@/types";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+export const DEFAULT_PER_PAGE = 12;
+export const PER_PAGE_OPTIONS = [12, 24, 48] as const;
+
 const urlRegex = /https?:\/\/\S+|www\.\S+/g;
 const emailRegex = /\b[\w.%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g;
 export const linkRegex = new RegExp(
