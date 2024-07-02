@@ -4,6 +4,7 @@ import { useCheckParams } from "@/hooks/use-check-params";
 import { useGallery } from "@/hooks/use-gallery";
 import { useParams } from "@/hooks/use-params";
 import { getContent, PER_PAGE_OPTIONS } from "@/lib/utils";
+import { TriangleAlertIcon } from "lucide-react";
 import { useEventListener } from "usehooks-ts";
 import LoadingSpinner from "../loading/spinner";
 import Thumbnail from "./thumbnail";
@@ -73,14 +74,27 @@ export default function Gallery() {
 
   if (isLoading) {
     return (
-      <div className="absolute bottom-0 left-0 right-0 top-0 grid content-center justify-items-center gap-1.5 px-2">
+      <div className="mt-10 grid content-center justify-items-center gap-1.5 px-2 md:mt-20">
         <LoadingSpinner className="text-neutral-400/50 dark:fill-neutral-50 dark:text-neutral-300/30" />
       </div>
     );
   }
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
+  if (error !== null || items.length === 0) {
+    return (
+      <div className="mt-10 grid content-center justify-items-center gap-1.5 px-2 text-center font-sans text-xl font-semibold md:mt-20">
+        <TriangleAlertIcon className="-mt-4 h-14 w-auto" />
+        Something went wrong, please try again later.
+      </div>
+    );
+  }
+
+  if (maxLength === 0) {
+    return (
+      <div className="mt-10 grid content-center justify-items-center gap-1.5 px-2 text-center font-sans text-xl font-semibold md:mt-20">
+        No images found.
+      </div>
+    );
   }
 
   return (

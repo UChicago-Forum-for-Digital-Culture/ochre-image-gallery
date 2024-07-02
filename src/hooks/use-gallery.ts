@@ -17,9 +17,11 @@ async function fetchGalleryItems(uuid: string, page: number, perPage: number) {
 
   return {
     gallery:
-      Array.isArray(data.result.gallery.resource) ?
-        data.result.gallery.resource
-      : [data.result.gallery.resource],
+      data.result.gallery.resource ?
+        Array.isArray(data.result.gallery.resource) ?
+          data.result.gallery.resource
+        : [data.result.gallery.resource]
+      : [],
     maxLength: data.result.gallery.maxLength,
   };
 }
@@ -28,7 +30,7 @@ export function useGallery() {
   const params = useNavigationParams();
   const uuid = params.uuid as string;
 
-  const [{ page, per_page: perPage }] = useParams();
+  const [{ page, per_page: perPage }, setState] = useParams();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["gallery", uuid, page, perPage],
@@ -38,14 +40,22 @@ export function useGallery() {
   const [maxLength, setMaxLength] = useState<number | null>(null);
 
   useEffect(() => {
-    if (data?.maxLength == null) {
-      return;
+    async function handleMaxLength() {
+      if (data?.maxLength == null) {
+        return;
+      }
+
+      if (data.maxLength !== maxLength) {
+        setMaxLength(data.maxLength);
+      }
+
+      if (data.maxLength && data.gallery.length === 0) {
+        await setState({ page: 1 });
+      }
     }
 
-    if (maxLength === null || data.maxLength !== maxLength) {
-      setMaxLength(data.maxLength);
-    }
-  }, [maxLength, data?.maxLength]);
+    void handleMaxLength();
+  }, [maxLength, data?.maxLength, data?.gallery.length, setState]);
 
   return {
     items: data?.gallery ?? [],

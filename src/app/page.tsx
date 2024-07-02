@@ -9,8 +9,8 @@ import { getSelectorsByUserAgent } from "react-device-detect";
 const ThemeButton = nextDynamic(() => import("@/components/theme-button"), {
   ssr: false,
   loading: () => (
-    <div className="absolute right-0 top-0 m-2 p-2 opacity-50">
-      <LoadingSpinner className="h-5 w-auto fill-neutral-950 text-neutral-400/90" />
+    <div className="absolute right-0 top-0 mx-[25px] my-[23px]">
+      <LoadingSpinner className="h-5 w-5 fill-neutral-950 text-neutral-400/90 dark:fill-neutral-50 dark:text-neutral-300/30" />
     </div>
   ),
 });

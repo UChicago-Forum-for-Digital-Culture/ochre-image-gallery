@@ -7,7 +7,7 @@ const ThemeButton = dynamic(() => import("@/components/theme-button"), {
   ssr: false,
   loading: () => (
     <div>
-      <LoadingSpinner isDark={true} className="mx-[7px] my-1.5 h-6 w-6" />
+      <LoadingSpinner isDark={true} className="mx-[7px] h-6 w-6" />
     </div>
   ),
 });
