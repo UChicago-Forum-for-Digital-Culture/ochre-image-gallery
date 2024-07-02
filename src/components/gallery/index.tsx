@@ -73,7 +73,7 @@ export default function Gallery() {
 
   if (isLoading) {
     return (
-      <div className="absolute bottom-0 left-0 right-0 top-0 grid content-center justify-items-center gap-1.5 px-2 md:mt-20">
+      <div className="absolute bottom-0 left-0 right-0 top-0 grid content-center justify-items-center gap-1.5 px-2">
         <LoadingSpinner className="text-neutral-400/50 dark:fill-neutral-50 dark:text-neutral-300/30" />
       </div>
     );
@@ -90,7 +90,11 @@ export default function Gallery() {
           key={item.uuid}
           uuid={item.uuid}
           title={getContent(item.identification.label)}
-          content={`${item?.image?.htmlImgSrcPrefix}${getContent(item?.image?.content)}`}
+          content={
+            item?.image?.htmlImgSrcPrefix && item?.image?.content ?
+              `${item.image.htmlImgSrcPrefix}${getContent(item?.image?.content)}`
+            : null
+          }
         />
       ))}
     </div>

@@ -19,7 +19,7 @@ const GalleryThumbnail = ({
 }: {
   uuid: string;
   title: string;
-  content: string;
+  content: string | null;
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -64,7 +64,7 @@ const GalleryThumbnail = ({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3, delay: 0.3 }}
+                    transition={{ duration: 0.3 }}
                     className="pointer-events-none z-10 col-start-1 col-end-2 row-start-1 row-end-2 grid select-none items-center justify-center"
                   >
                     <LoadingSpinner className="dark:fill-neutral-50 dark:text-neutral-300/30" />
@@ -73,7 +73,10 @@ const GalleryThumbnail = ({
               </AnimatePresence>
               <div className="col-start-1 col-end-2 row-start-1 row-end-2 grid items-center justify-center">
                 <Image
-                  src={content}
+                  src={
+                    content ??
+                    `https://ochre.lib.uchicago.edu/ochre?uuid=${encodeURIComponent(uuid)}&preview`
+                  }
                   alt={title}
                   unoptimized={true}
                   height={0}

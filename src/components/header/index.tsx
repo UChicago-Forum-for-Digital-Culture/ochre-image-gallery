@@ -6,8 +6,8 @@ import Input from "./input";
 const ThemeButton = dynamic(() => import("@/components/theme-button"), {
   ssr: false,
   loading: () => (
-    <div className="absolute right-0 top-0 m-2 p-2 opacity-50">
-      <LoadingSpinner className="h-5 w-auto fill-neutral-950 text-neutral-400/90" />
+    <div>
+      <LoadingSpinner isDark={true} className="mx-[7px] my-1.5 h-6 w-6" />
     </div>
   ),
 });
