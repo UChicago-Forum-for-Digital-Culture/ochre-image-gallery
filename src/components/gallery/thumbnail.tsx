@@ -12,7 +12,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { memo, useState } from "react";
 
-const GalleryThumbnail = ({ uuid, title }: { uuid: string; title: string }) => {
+const GalleryThumbnail = ({
+  uuid,
+  title,
+  content,
+}: {
+  uuid: string;
+  title: string;
+  content: string;
+}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -41,7 +49,7 @@ const GalleryThumbnail = ({ uuid, title }: { uuid: string; title: string }) => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3, delay: 0.3 }}
+                    transition={{ duration: 0.3 }}
                     className="pointer-events-none z-10 col-start-1 col-end-2 row-start-1 row-end-2 grid select-none items-center justify-items-center gap-1 text-center tracking-[0.2px] dark:text-white"
                   >
                     <TriangleAlertIcon className="h-10 w-auto" />
@@ -65,8 +73,9 @@ const GalleryThumbnail = ({ uuid, title }: { uuid: string; title: string }) => {
               </AnimatePresence>
               <div className="col-start-1 col-end-2 row-start-1 row-end-2 grid items-center justify-center">
                 <Image
-                  src={`https://ochre.lib.uchicago.edu/ochre?uuid=${encodeURIComponent(uuid)}&preview`}
+                  src={content}
                   alt={title}
+                  unoptimized={true}
                   height={0}
                   width={0}
                   priority={true}
@@ -76,7 +85,12 @@ const GalleryThumbnail = ({ uuid, title }: { uuid: string; title: string }) => {
                     setIsLoading(false);
                     setIsError(true);
                   }}
-                  className="h-[200px] w-[300px] bg-[#ffffff] object-contain object-center transition-all dark:bg-neutral-950"
+                  className={cn(
+                    "h-[200px] w-[300px] bg-[#ffffff] object-contain object-center transition-all dark:bg-neutral-950",
+                    {
+                      "pointer-events-none select-none opacity-0": isError,
+                    },
+                  )}
                 />
               </div>
             </div>

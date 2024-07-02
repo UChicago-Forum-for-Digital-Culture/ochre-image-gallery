@@ -70,6 +70,7 @@ export type OchreResource = {
   image: {
     publicationDateTime: string;
     content: OchreString | Array<OchreString>;
+    htmlImgSrcPrefix: string;
   };
   project: {
     identification: {
@@ -332,7 +333,7 @@ export type OchreResourceResponse = {
     metadata: OchreMetadata;
     languages: string;
     publicationDateTime: string;
-    resource: OchreResource;
+    resource: OchreResource | Array<OchreResource>;
     belongsTo: string;
     uuid: string;
   };
@@ -424,6 +425,29 @@ export type OchreConceptResponse = {
         };
         uuid: string;
         n: number;
+      };
+    };
+  };
+};
+
+export type OchreResultGalleryResponse = {
+  result: {
+    gallery: {
+      resource: OchreResource | Array<OchreResource>;
+      maxLength: number;
+    };
+  };
+};
+
+export type OchreResultMetadataResponse = {
+  result: {
+    metadata: {
+      item: {
+        label: {
+          content: OchreString | Array<OchreString>;
+        };
+        type: string;
+        maxLength: number;
       };
     };
   };

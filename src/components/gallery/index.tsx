@@ -1,26 +1,23 @@
 "use client";
 
 import { useCheckParams } from "@/hooks/use-check-params";
+import { useGallery } from "@/hooks/use-gallery";
 import { useParams } from "@/hooks/use-params";
 import { getContent, PER_PAGE_OPTIONS } from "@/lib/utils";
-import type { OchreResource } from "@/types";
-import { useMemo } from "react";
 import { useEventListener } from "usehooks-ts";
+import LoadingSpinner from "../loading/spinner";
 import Thumbnail from "./thumbnail";
 
-export default function Gallery({ items }: { items: Array<OchreResource> }) {
+export default function Gallery() {
+  const { items, maxLength, isLoading, error } = useGallery();
+
   const [{ page, per_page: perPage }, setState] = useParams();
 
   useCheckParams();
 
-  const itemsToDisplay = useMemo(
-    () => items.slice((page - 1) * perPage, page * perPage),
-    [items, page, perPage],
-  );
-
   useEventListener("keydown", (e) => {
     async function handleKeyDown() {
-      if (document.activeElement?.tagName === "INPUT") {
+      if (document.activeElement?.tagName === "INPUT" || !maxLength) {
         return;
       }
 
@@ -56,7 +53,7 @@ export default function Gallery({ items }: { items: Array<OchreResource> }) {
               ],
           });
         } else {
-          if (page < Math.ceil(items.length / perPage)) {
+          if (page < Math.ceil(maxLength / perPage)) {
             await setState({ page: page + 1 });
           }
         }
@@ -65,8 +62,8 @@ export default function Gallery({ items }: { items: Array<OchreResource> }) {
           await setState({ page: 1 });
         }
       } else if (e.key === "ArrowDown") {
-        if (page < Math.ceil(items.length / perPage)) {
-          await setState({ page: Math.ceil(items.length / perPage) });
+        if (page < Math.ceil(maxLength / perPage)) {
+          await setState({ page: Math.ceil(maxLength / perPage) });
         }
       }
     }
@@ -74,13 +71,26 @@ export default function Gallery({ items }: { items: Array<OchreResource> }) {
     void handleKeyDown();
   });
 
+  if (isLoading) {
+    return (
+      <div className="absolute bottom-0 left-0 right-0 top-0 grid content-center justify-items-center gap-1.5 px-2 md:mt-20">
+        <LoadingSpinner className="text-neutral-400/50 dark:fill-neutral-50 dark:text-neutral-300/30" />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   return (
     <div className="mt-1.5 flex flex-row flex-wrap justify-center gap-4 md:mt-0 xl:justify-start">
-      {itemsToDisplay.map((item) => (
+      {items.map((item) => (
         <Thumbnail
           key={item.uuid}
           uuid={item.uuid}
           title={getContent(item.identification.label)}
+          content={`${item?.image?.htmlImgSrcPrefix}${getContent(item?.image?.content)}`}
         />
       ))}
     </div>

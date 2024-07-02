@@ -3,10 +3,10 @@ import dynamic from "next/dynamic";
 import Link from "next/link";
 import LoadingSpinner from "../loading/spinner";
 import Input from "./input";
-const ThemeButton = dynamic(() => import("./theme-button"), {
+const ThemeButton = dynamic(() => import("@/components/theme-button"), {
   ssr: false,
   loading: () => (
-    <div className="grid h-9 w-9 items-center justify-center rounded-sm bg-gradient-to-b from-white to-neutral-200 text-black shadow-sm">
+    <div className="absolute right-0 top-0 m-2 p-2 opacity-50">
       <LoadingSpinner className="h-5 w-auto fill-neutral-950 text-neutral-400/90" />
     </div>
   ),
@@ -30,7 +30,10 @@ export default function Header() {
         </div>
         <div className="hidden grid-flow-col items-center gap-x-2 min-[350px]:grid">
           <Input />
-          <ThemeButton />
+          <ThemeButton
+            hasMargin={true}
+            className="text-brand-100 hover:text-white active:text-white"
+          />
         </div>
       </div>
     </header>

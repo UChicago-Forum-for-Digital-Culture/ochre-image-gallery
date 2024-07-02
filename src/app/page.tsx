@@ -28,7 +28,7 @@ export default function Page() {
 
   return (
     <div>
-      <ThemeButton />
+      <ThemeButton className="absolute right-0 top-0 m-4 opacity-50" />
       <main className="absolute bottom-0 left-0 right-0 top-0 mx-auto max-w-prose p-2">
         <div className="grid h-full w-full gap-20">
           <Form isMobile={isMobile} />

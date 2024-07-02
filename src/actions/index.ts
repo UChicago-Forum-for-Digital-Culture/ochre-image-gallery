@@ -7,7 +7,7 @@ import { zfd } from "zod-form-data";
 
 const schema = zfd.formData({
   uuid: zfd.text(
-    z.string().uuid({
+    z.string().trim().uuid({
       message:
         "The UUID value you have entered is not valid, please try again.",
     }),
@@ -16,4 +16,5 @@ const schema = zfd.formData({
 
 export const handleUuidRoute = actionClient
   .schema(schema)
-  .action(async ({ parsedInput: { uuid } }) => redirect(`/${uuid}`));
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+  .action(async ({ parsedInput: { uuid } }) => redirect(`/${uuid.trim()}`));
