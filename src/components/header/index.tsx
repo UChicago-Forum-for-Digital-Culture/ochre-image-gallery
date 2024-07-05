@@ -1,7 +1,7 @@
+import LoadingSpinner from "@/components/loading/spinner";
 import { ArrowLeftIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import LoadingSpinner from "../loading/spinner";
 import Input from "./input";
 const ThemeButton = dynamic(() => import("@/components/theme-button"), {
   ssr: false,

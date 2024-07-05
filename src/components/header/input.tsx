@@ -1,13 +1,13 @@
 "use client";
 
 import { handleUuidRoute } from "@/actions";
+import LoadingSpinner from "@/components/loading/spinner";
 import { ArrowRightIcon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useRef } from "react";
 import { useFormStatus } from "react-dom";
 import { toast } from "sonner";
 import { useEventListener } from "usehooks-ts";
-import LoadingSpinner from "../loading/spinner";
 
 function FormButton() {
   const { pending } = useFormStatus();

@@ -1,18 +1,21 @@
 "use client";
 
+import LoadingSpinner from "@/components/loading/spinner";
 import { useCheckParams } from "@/hooks/use-check-params";
 import { useGallery } from "@/hooks/use-gallery";
 import { useParams } from "@/hooks/use-params";
 import { getContent, PER_PAGE_OPTIONS } from "@/lib/utils";
+import { useGalleryStore } from "@/providers/gallery-store-provider";
 import { TriangleAlertIcon } from "lucide-react";
 import { useEventListener } from "usehooks-ts";
-import LoadingSpinner from "../loading/spinner";
 import Thumbnail from "./thumbnail";
 
 export default function Gallery() {
-  const { items, maxLength, isLoading, error } = useGallery();
+  const { items, isLoading, error } = useGallery();
 
   const [{ page, per_page: perPage }, setState] = useParams();
+
+  const maxLength = useGalleryStore((state) => state.maxLength);
 
   useCheckParams();
 

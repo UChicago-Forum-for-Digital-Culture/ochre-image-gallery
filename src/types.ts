@@ -64,6 +64,18 @@ export type OchreLink = {
   href: string;
 };
 
+export type OchreProject = {
+  website: string;
+  identification: {
+    label: {
+      content: OchreString | Array<OchreString>;
+    };
+    abbreviation: {
+      content: OchreString | Array<OchreString>;
+    };
+  };
+};
+
 export type OchreResource = {
   date: string;
   copyright: string;
@@ -182,16 +194,7 @@ export type OchreResource = {
         };
         displayPath: string;
       };
-      project: {
-        identification: {
-          label: {
-            content: OchreString | Array<OchreString>;
-          };
-          abbreviation: {
-            content: OchreString | Array<OchreString>;
-          };
-        };
-      };
+      project: OchreProject;
       type: string;
       uuid: string;
       n: number;
@@ -235,6 +238,13 @@ export type OchreMetadata = {
       dc: string;
     };
   };
+  item: {
+    label: {
+      content: OchreString | Array<OchreString>;
+    };
+    type: string;
+    maxLength: number;
+  };
   description: {
     content: string;
     xmlns: {
@@ -247,6 +257,7 @@ export type OchreMetadata = {
       dc: string;
     };
   };
+  project: OchreProject;
   language: {
     default?: boolean;
     content: string;
@@ -433,6 +444,12 @@ export type OchreConceptResponse = {
 export type OchreResultGalleryResponse = {
   result: {
     gallery: {
+      project: OchreProject;
+      item: {
+        label: {
+          content: OchreString | Array<OchreString>;
+        };
+      };
       resource: OchreResource | Array<OchreResource>;
       maxLength: number;
     };
@@ -440,17 +457,7 @@ export type OchreResultGalleryResponse = {
 };
 
 export type OchreResultMetadataResponse = {
-  result: {
-    metadata: {
-      item: {
-        label: {
-          content: OchreString | Array<OchreString>;
-        };
-        type: string;
-        maxLength: number;
-      };
-    };
-  };
+  result: { metadata: OchreMetadata };
 };
 
 export type OchreItem = {

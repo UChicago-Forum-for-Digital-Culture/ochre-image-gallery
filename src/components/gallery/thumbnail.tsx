@@ -12,6 +12,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { memo, useState } from "react";
 
+type Status = "loading" | "error" | "success";
+
 const GalleryThumbnail = ({
   uuid,
   title,
@@ -21,8 +23,7 @@ const GalleryThumbnail = ({
   title: string;
   content: string | null;
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const [status, setStatus] = useState<Status>("loading");
 
   return (
     <TooltipProvider disableHoverableContent={true}>
@@ -34,16 +35,16 @@ const GalleryThumbnail = ({
             rel="noopener noreferrer"
             className={cn(
               "group grid w-[300px] overflow-hidden rounded-sm bg-gradient-to-b from-white to-neutral-100 font-sans font-medium text-neutral-800 shadow-md dark:from-neutral-900 dark:to-neutral-950 dark:text-white",
-              { "pointer-events-none": isLoading || isError },
+              { "pointer-events-none": status !== "success" },
               {
                 "hover-xs active-md hover:brightness-100 active:rounded-sm":
-                  !isLoading && !isError,
+                  status === "success",
               },
             )}
           >
             <div className="grid h-[200px] w-[300px] items-center justify-center">
               <AnimatePresence>
-                {isError ?
+                {status === "error" ?
                   <motion.div
                     key={`error-message-${uuid}`}
                     initial={{ opacity: 0 }}
@@ -58,7 +59,7 @@ const GalleryThumbnail = ({
                 : null}
               </AnimatePresence>
               <AnimatePresence>
-                {isLoading ?
+                {status === "loading" ?
                   <motion.div
                     key={`loading-spinner-${uuid}`}
                     initial={{ opacity: 0 }}
@@ -83,21 +84,19 @@ const GalleryThumbnail = ({
                   width={0}
                   priority={true}
                   sizes="100vw"
-                  onLoad={() => setIsLoading(false)}
-                  onError={() => {
-                    setIsLoading(false);
-                    setIsError(true);
-                  }}
+                  onLoad={() => setStatus("success")}
+                  onError={() => setStatus("error")}
                   className={cn(
                     "h-[200px] w-[300px] bg-[#ffffff] object-contain object-center transition-all dark:bg-neutral-950",
                     {
-                      "pointer-events-none select-none opacity-0": isError,
+                      "pointer-events-none select-none opacity-0":
+                        status === "error",
                     },
                   )}
                 />
               </div>
             </div>
-            <div className="bg-gradient-to-b from-neutral-100 from-10% via-neutral-200 via-60% to-neutral-300 to-100% py-1 text-center tracking-[0.2px] transition-raise group-hover:brightness-hover group-active:shadow-inset-sm group-active:brightness-active dark:from-neutral-600 dark:to-neutral-700 dark:text-white">
+            <div className="text-balance bg-gradient-to-b from-neutral-100 from-10% via-neutral-200 via-60% to-neutral-300 to-100% px-1.5 py-1 text-center tracking-[0.2px] transition-raise group-hover:brightness-hover group-active:shadow-inset-sm group-active:brightness-active dark:from-neutral-600 dark:to-neutral-700 dark:text-white">
               {title}
             </div>
           </Link>

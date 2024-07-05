@@ -1,18 +1,19 @@
 "use client";
 
-import { useGallery } from "@/hooks/use-gallery";
+import LoadingSpinner from "@/components/loading/spinner";
 import { useParams } from "@/hooks/use-params";
 import { cn } from "@/lib/utils";
+import { useGalleryStore } from "@/providers/gallery-store-provider";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronsLeftIcon,
   ChevronsRightIcon,
 } from "lucide-react";
-import LoadingSpinner from "../loading/spinner";
+import { memo } from "react";
 
-export default function PageButtons() {
-  const { maxLength } = useGallery();
+const PageButtons = () => {
+  const maxLength = useGalleryStore((state) => state.maxLength);
 
   const [{ page, per_page: perPage }, setState] = useParams();
 
@@ -49,7 +50,7 @@ export default function PageButtons() {
           {"/"}
           {maxLength ?
             Math.ceil(maxLength / perPage)?.toLocaleString("en-US")
-          : <div>
+          : <div className="pr-1">
               <LoadingSpinner className="h-3.5 w-3.5 text-neutral-400/50 dark:fill-neutral-50 dark:text-neutral-300/30" />
             </div>
           }
@@ -79,4 +80,6 @@ export default function PageButtons() {
       </button>
     </div>
   );
-}
+};
+
+export default memo(PageButtons);

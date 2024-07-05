@@ -15,13 +15,28 @@ export async function generateMetadata({
   );
   const data = (await response.json()) as OchreResultMetadataResponse;
 
-  const title = getContent(data.result.metadata.item.label.content);
-  if (!title) {
-    // it is annoying to deal with the redirect in development
-    if (process.env.NODE_ENV === "production") {
-      notFound();
-    }
+  const project =
+    Array.isArray(data.result.metadata.project.identification.label.content) ?
+      getContent(
+        data.result.metadata.project.identification.label.content.find(
+          (item) => typeof item === "object" && item.lang === "eng",
+        ) ?? "",
+      )
+    : getContent(data.result.metadata.project.identification.label.content);
+  const item =
+    Array.isArray(data.result.metadata.item.label.content) ?
+      getContent(
+        data.result.metadata.item.label.content.find(
+          (item) => typeof item === "object" && item.lang === "eng",
+        ) ?? "",
+      )
+    : getContent(data.result.metadata.item.label.content);
+
+  if (!project && !item) {
+    notFound();
   }
+
+  const title = project && item ? `${item} - ${project}` : project ?? item;
 
   return {
     title: title,
